@@ -1,4 +1,4 @@
-go-modou-cli
+go-modou-cli (WIP - 开发中)
 ============
 
 魔豆命令行客户端，快速、跨平台
