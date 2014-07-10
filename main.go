@@ -11,8 +11,8 @@ import (
 var (
 	Version = "0.0.0"
 	apiURL  = "http://modouwifi.net/api"
-	stdin   = bufio.NewReader(os.Stdin)
 	mdAgent = "md/" + Version + " (" + runtime.GOOS + "; " + runtime.GOARCH + ")"
+	stdin   = bufio.NewReader(os.Stdin)
 )
 
 // Running `md help` will list commands in this order.

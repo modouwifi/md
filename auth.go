@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
+	"os"
+
 	"github.com/bgentry/speakeasy"
 	"github.com/heroku/hk/term"
-	"os"
 )
 
 var cmdLogin = &Command{
