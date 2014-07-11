@@ -12,7 +12,7 @@ type Client struct {
 
 func (c *Client) NewRequest(method, uri string) (*httprequest.Request, error) {
 	c.Request = httprequest.New(method, c.ApiURL+uri, c.UserAgent)
-  c.Request.SetProtocolVersion("HTTP/1.1")
+	c.Request.SetProtocolVersion("HTTP/1.1")
 	return c.Request, nil
 }
 

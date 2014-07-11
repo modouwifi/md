@@ -63,10 +63,10 @@ func attemptLogin(password string) (err error) {
 	data.Password = password
 	req.Body(data)
 	resp, err := req.Do()
-  if err != nil {
-    return err
-  }
-  fmt.Println(resp)
+	if err != nil {
+		return err
+	}
+	fmt.Println(resp)
 	return nil
 }
 

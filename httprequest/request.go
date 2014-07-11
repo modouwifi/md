@@ -41,15 +41,15 @@ func (r *Request) SetTransport() {}
 func (r *Request) Param() {}
 
 func (r *Request) SetProtocolVersion(vers string) {
-  if len(vers) == 0 {
-    vers = "HTTP/1.1"
-  }
-  major, minor, ok := http.ParseHTTPVersion(vers)
-  if ok {
-    r.req.Proto = vers
-    r.req.ProtoMajor = major
-    r.req.ProtoMinor = minor
-  }
+	if len(vers) == 0 {
+		vers = "HTTP/1.1"
+	}
+	major, minor, ok := http.ParseHTTPVersion(vers)
+	if ok {
+		r.req.Proto = vers
+		r.req.ProtoMajor = major
+		r.req.ProtoMinor = minor
+	}
 }
 
 func (r *Request) Body(data interface{}) {
@@ -110,17 +110,17 @@ func (r *Request) Do() (*http.Response, error) {
 	}
 
 	resp, err := client.Do(r.req)
-  // debug
-  /*
-	data, err := ioutil.ReadAll(resp.Body)
-	dst := new(bytes.Buffer)
-	if err == nil {
-		json.Indent(dst, data, "", "  ")
-		log.Printf("JSON Data\n%v\n", dst)
-	} else {
-		log.Println(err)
-	}
-  */
+	// debug
+	/*
+		data, err := ioutil.ReadAll(resp.Body)
+		dst := new(bytes.Buffer)
+		if err == nil {
+			json.Indent(dst, data, "", "  ")
+			log.Printf("JSON Data\n%v\n", dst)
+		} else {
+			log.Println(err)
+		}
+	*/
 
 	if err != nil {
 		return nil, err
