@@ -1,4 +1,4 @@
-go-modou-cli (WIP - 开发中)
-============
+md (WIP)
+========
 
-魔豆命令行客户端，快速、跨平台
+A Fast Modou CLI client.
