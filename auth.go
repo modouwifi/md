@@ -53,6 +53,20 @@ func readPassword(prompt string) (password string, err error) {
 }
 
 func attemptLogin(password string) (err error) {
+	req, err := client.NewRequest("POST", "/auth/login")
+	if err != nil {
+		return err
+	}
+	var data struct {
+		Password string `json:"password"`
+	}
+	data.Password = password
+	req.Body(data)
+	resp, err := req.Do()
+  if err != nil {
+    return err
+  }
+  fmt.Println(resp)
 	return nil
 }
 

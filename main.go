@@ -6,9 +6,14 @@ import (
 	"log"
 	"os"
 	"runtime"
+
+	"github.com/fundon/md/mdclient"
+	"github.com/heroku/hk/term"
+	"github.com/mgutz/ansi"
 )
 
 var (
+	client  *mdclient.Client
 	Version = "0.0.0"
 	apiURL  = "http://modouwifi.net/api"
 	mdAgent = "md/" + Version + " (" + runtime.GOOS + "; " + runtime.GOARCH + ")"
@@ -24,8 +29,18 @@ var commands = []*Command{
 	cmdHelp,
 }
 
+func initClient() {
+	client = mdclient.New(apiURL, mdAgent)
+}
+
 func main() {
 	log.SetFlags(0)
+
+	if !term.IsANSI(os.Stdout) {
+		ansi.DisableColors(true)
+	}
+
+	initClient()
 
 	args := os.Args[1:]
 
