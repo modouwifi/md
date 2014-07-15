@@ -50,6 +50,7 @@ func init() {
 		cmdLogout,
 
 		cmdSystem,
+		cmdSecurity,
 	)
 }
 
