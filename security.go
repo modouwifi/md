@@ -18,7 +18,7 @@ var cmdSecurity = cli.Command{
 		},
 		{
 			Name:   "set",
-			Usage:  "set system security's status",
+			Usage:  "Set system security's status",
 			Action: runSecuritySet,
 		},
 	},
