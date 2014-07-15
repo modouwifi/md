@@ -22,7 +22,6 @@ type Request struct {
 
 	req *http.Request
 	res *http.Response
-	jar *http.CookieJar
 }
 
 func New(method, url, userAgent string) *Request {
