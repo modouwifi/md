@@ -1,18 +1,11 @@
-md (WIP)
-========
+md （开发中）
+===========
 
-A Fast Modou CLI client.   
-Built with [Modou HTTP API](https://github.com/modouwifi/modouwifi-api).
-
-
-## Installation
-
-```
-$ go install github.com/modouwifi/md
-```
+___md___ 是魔豆路由器的一个命令行客户端，快速且简单。   
+它使用在魔豆路由器提供的[API](https://github.com/modouwifi/modouwifi-api)。
 
 
-## Usage
+### 使用
 
 ```
 $ md <command> [options] [arguments]
@@ -21,7 +14,9 @@ $ md help <command>
 $ md system
 ```
 
-### Commands
+
+### 命令
+
 
 * `login`
 * `system`
