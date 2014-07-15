@@ -9,7 +9,7 @@ import (
 
 var cmdSystem = cli.Command{
 	Name:  "system",
-	Usage: "",
+	Usage: "Operate system",
 	//Action: runSystem,
 	Subcommands: []cli.Command{
 		{
@@ -21,6 +21,11 @@ var cmdSystem = cli.Command{
 			Name:   "check",
 			Usage:  "Check latest version",
 			Action: runSystemCheckLatestVersion,
+		},
+		{
+			Name:   "reboot",
+			Usage:  "Reboot router",
+			Action: runSystemReboot,
 		},
 	},
 }
@@ -51,4 +56,15 @@ func runSystemCheckLatestVersion(c *cli.Context) {
 	fmt.Println(result.Filename)
 	fmt.Println(result.Version)
 	fmt.Println(result.Releasenote)
+}
+
+func runSystemReboot(c *cli.Context) {
+	req, err := client.NewRequest("GET", "/system/reboot")
+	if err != nil {
+		fmt.Println(err)
+	}
+	req.SetCookie(config.Cookie)
+	var result api.ResponseMessage
+	err = req.ToJSON(&result)
+	fmt.Println(result)
 }
