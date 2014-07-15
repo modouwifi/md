@@ -8,8 +8,8 @@ import (
 
 	"github.com/bgentry/speakeasy"
 	"github.com/codegangsta/cli"
-	"github.com/modouwifi/md/api"
 	"github.com/heroku/hk/term"
+	"github.com/modouwifi/md/api"
 )
 
 var cmdLogin = cli.Command{
