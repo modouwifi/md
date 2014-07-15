@@ -27,6 +27,11 @@ var cmdSystem = cli.Command{
 			Usage:  "Reboot router",
 			Action: runSystemReboot,
 		},
+		{
+			Name:   "safe",
+			Usage:  "Enter safe mode",
+			Action: runSystemSafe,
+		},
 	},
 }
 
@@ -60,6 +65,17 @@ func runSystemCheckLatestVersion(c *cli.Context) {
 
 func runSystemReboot(c *cli.Context) {
 	req, err := client.NewRequest("GET", "/system/reboot")
+	if err != nil {
+		fmt.Println(err)
+	}
+	req.SetCookie(config.Cookie)
+	var result api.ResponseMessage
+	err = req.ToJSON(&result)
+	fmt.Println(result)
+}
+
+func runSystemSafe(c *cli.Context) {
+	req, err := client.NewRequest("GET", "/system/safe_reboot")
 	if err != nil {
 		fmt.Println(err)
 	}
