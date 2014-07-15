@@ -7,13 +7,12 @@ import (
 	"runtime"
 
 	"github.com/codegangsta/cli"
-	"github.com/modouwifi/md/mdclient"
 )
 
 const VERSION = "0.0.0"
 
 var (
-	client  *mdclient.Client
+	client  *Client
 	config  *Config
 	app     = cli.NewApp()
 	apiURL  = "http://modouwifi.net/api"
@@ -22,7 +21,7 @@ var (
 )
 
 func initClient() {
-	client = mdclient.New(apiURL, mdAgent)
+	client = NewClient(apiURL, mdAgent)
 	config = &Config{}
 	file, err := LocateRcfile()
 	if err != nil {
