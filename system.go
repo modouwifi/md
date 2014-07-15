@@ -32,6 +32,11 @@ var cmdSystem = cli.Command{
 			Usage:  "Enter safe mode",
 			Action: runSystemSafe,
 		},
+		{
+			Name:   "reset",
+			Usage:  "Reset system",
+			Action: runSystemReset,
+		},
 	},
 }
 
@@ -76,6 +81,17 @@ func runSystemReboot(c *cli.Context) {
 
 func runSystemSafe(c *cli.Context) {
 	req, err := client.NewRequest("GET", "/system/safe_reboot")
+	if err != nil {
+		fmt.Println(err)
+	}
+	req.SetCookie(config.Cookie)
+	var result api.ResponseMessage
+	err = req.ToJSON(&result)
+	fmt.Println(result)
+}
+
+func runSystemReset(c *cli.Context) {
+	req, err := client.NewRequest("GET", "/system/reset_config")
 	if err != nil {
 		fmt.Println(err)
 	}
