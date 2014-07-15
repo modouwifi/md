@@ -11,7 +11,7 @@ Built with [Modou HTTP API](https://github.com/modouwifi/modouwifi-api).
 $ md <command> [options] [arguments]
 $ md help
 $ md help <command>
-$ md help system
+$ md system
 ```
 
 ### Commands
