@@ -1,6 +1,7 @@
 package main
 
 import (
+  "fmt"
 	"bufio"
 	"os"
 	"path/filepath"
@@ -27,11 +28,11 @@ func initClient() {
 	if err != nil {
 		err = os.MkdirAll(filepath.Dir(file), os.ModePerm)
 		if err != nil {
-			printFatal(err.Error())
+			fmt.Println(err.Error())
 		}
 		_, err := os.OpenFile(file, os.O_CREATE, os.ModePerm)
 		if err != nil {
-			printFatal(err.Error())
+			fmt.Println(err.Error())
 		}
 	}
 	config.Filename = file

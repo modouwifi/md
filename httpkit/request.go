@@ -1,4 +1,4 @@
-package httprequest
+package httpkit
 
 import (
 	"bytes"

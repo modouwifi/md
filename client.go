@@ -1,17 +1,17 @@
 package main
 
 import (
-	"github.com/modouwifi/md/httprequest"
+	"github.com/modouwifi/md/httpkit"
 )
 
 type Client struct {
 	ApiURL    string
 	UserAgent string
-	Request   *httprequest.Request
+	Request   *httpkit.Request
 }
 
-func (c *Client) NewRequest(method, uri string) (*httprequest.Request, error) {
-	c.Request = httprequest.New(method, c.ApiURL+uri, c.UserAgent)
+func (c *Client) NewRequest(method, uri string) (*httpkit.Request, error) {
+	c.Request = httpkit.New(method, c.ApiURL+uri, c.UserAgent)
 	c.Request.SetProtocolVersion("HTTP/1.1")
 	return c.Request, nil
 }

@@ -24,9 +24,9 @@ func runLogin(c *cli.Context) {
 	switch {
 	case err == nil:
 	case err.Error() == "unexpected newline":
-		printFatal("password is required.")
+		fmt.Println("password is required.")
 	default:
-		printFatal(err.Error())
+		fmt.Println(err.Error())
 	}
 
 	err = attemptLogin(password)
@@ -67,7 +67,7 @@ func attemptLogin(password string) error {
 		return err
 	}
 	if result.Code != 0 {
-		printFatal(result.Msg)
+		fmt.Println(result.Msg)
 	} else {
 		res := req.GetRes()
 		rawCookie := res.Header.Get("Set-Cookie")
