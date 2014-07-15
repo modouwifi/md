@@ -18,3 +18,4 @@ $ md help system
 
 * `login`
 * `system`
+* `security`
