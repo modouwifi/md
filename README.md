@@ -1,8 +1,8 @@
 md （开发中）
 ===========
 
-___md___ 是魔豆路由器的一个命令行客户端，快速且简单。   
-它使用在魔豆路由器提供的[API](https://github.com/modouwifi/modouwifi-api)。
+__md__ 是魔豆路由器的一个命令行客户端，使用 Go 语言进行开发，快速、简单、跨平台。   
+它使用在魔豆路由器提供的 [API](https://github.com/modouwifi/modouwifi-api)。
 
 
 ### 使用
