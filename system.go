@@ -37,6 +37,14 @@ var cmdSystem = cli.Command{
 			Usage:  "Reset system",
 			Action: runSystemReset,
 		},
+		{
+			Name:   "backlight",
+			Usage:  "Control the backlight",
+			Action: runSystemBacklight,
+			Flags: []cli.Flag{
+				cli.StringFlag{Name: "action, a", Value: "lock", Usage: "Control the blacklight, lock|release|wakeup"},
+			},
+		},
 	},
 }
 
@@ -99,4 +107,28 @@ func runSystemReset(c *cli.Context) {
 	var result api.ResponseMessage
 	err = req.ToJSON(&result)
 	fmt.Println(result)
+}
+
+var actionsOfBacklight = []string{"lock", "release", "wakeup"}
+
+func runSystemBacklight(c *cli.Context) {
+	var a = c.String("action")
+	var b bool
+	for _, i := range actionsOfBacklight {
+		b = a == i
+		if b {
+			break
+		}
+	}
+	if b {
+		url := fmt.Sprintf("/system/%s_backlight", a)
+		req, err := client.NewRequest("GET", url)
+		if err != nil {
+			fmt.Println(err)
+		}
+		req.SetCookie(config.Cookie)
+		var result api.ResponseMessage
+		err = req.ToJSON(&result)
+		fmt.Println(result)
+	}
 }
