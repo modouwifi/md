@@ -8,7 +8,7 @@ Built with [Modou HTTP API](https://github.com/modouwifi/modouwifi-api).
 ## Installation
 
 ```
-$ go install thub.com/modouwifi/md
+$ go install github.com/modouwifi/md
 ```
 
 
