@@ -1,5 +1,6 @@
 package main
 
+/*
 import (
 	"errors"
 	"fmt"
@@ -94,3 +95,4 @@ func usage() {
 	printUsage()
 	os.Exit(2)
 }
+*/

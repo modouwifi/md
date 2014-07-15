@@ -1,7 +1,7 @@
 package mdclient
 
 import (
-	"github.com/fundon/md/httprequest"
+	"github.com/modouwifi/md/httprequest"
 )
 
 type Client struct {

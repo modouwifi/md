@@ -2,33 +2,23 @@ package main
 
 import (
 	"fmt"
+	"net/http"
 	"os"
+	"strings"
 
 	"github.com/bgentry/speakeasy"
+	"github.com/codegangsta/cli"
+	"github.com/modouwifi/md/api"
 	"github.com/heroku/hk/term"
 )
 
-var cmdLogin = &Command{
-	Run:   runLogin,
-	Usage: "login",
-	Short: "log in of modou",
-	Long: `
-Login with geek mode's password.
-
-Example:
-
-    $ md login
-    Enter password:
-
-`,
+var cmdLogin = cli.Command{
+	Name:   "login",
+	Usage:  "log in of modou",
+	Action: runLogin,
 }
 
-func runLogin(cmd *Command, args []string) error {
-	if len(args) != 0 {
-		cmd.printUsage(false)
-		os.Exit(2)
-	}
-
+func runLogin(c *cli.Context) {
 	// NOTE: gopass doesn't support multi-byte chars on Windows
 	password, err := readPassword("Enter password: ")
 	switch {
@@ -40,7 +30,15 @@ func runLogin(cmd *Command, args []string) error {
 	}
 
 	err = attemptLogin(password)
-	return nil
+}
+
+var cmdLogout = cli.Command{
+	Name:   "logout",
+	Usage:  "log out of modou",
+	Action: runLogout,
+}
+
+func runLogout(c *cli.Context) {
 }
 
 func readPassword(prompt string) (password string, err error) {
@@ -52,42 +50,40 @@ func readPassword(prompt string) (password string, err error) {
 	return speakeasy.Ask("Enter password: ")
 }
 
-func attemptLogin(password string) (err error) {
+func attemptLogin(password string) error {
 	req, err := client.NewRequest("POST", "/auth/login")
 	if err != nil {
 		return err
 	}
-	var data struct {
+	body := struct {
 		Password string `json:"password"`
+	}{
+		Password: password,
 	}
-	data.Password = password
-	req.Body(data)
-	resp, err := req.Do()
+	req.Body(body)
+	var result api.ResponseMessage
+	err = req.ToJSON(&result)
 	if err != nil {
 		return err
 	}
-	fmt.Println(resp)
-	return nil
-}
-
-var cmdLogout = &Command{
-	Run:   runLogout,
-	Usage: "logout",
-	Short: "log out of modou",
-	Long: `
-Log out
-
-Example:
-
-    $ md logout
-    Logged out
-`,
-}
-
-func runLogout(cmd *Command, args []string) error {
-	if len(args) != 0 {
-		cmd.printUsage(false)
-		os.Exit(2)
+	if result.Code != 0 {
+		printFatal(result.Msg)
+	} else {
+		res := req.GetRes()
+		rawCookie := res.Header.Get("Set-Cookie")
+		if rawCookie != "" {
+			strs := strings.Split(rawCookie, ";")
+			cookie := strings.Split(strs[0], "=")
+			path := strings.Split(strs[1], "=")[1]
+			config.Cookie = &http.Cookie{
+				Name:  cookie[0],
+				Value: cookie[1],
+				Path:  path,
+			}
+			config.Password = password
+			err = config.Write()
+			return err
+		}
 	}
 	return nil
 }

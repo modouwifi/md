@@ -2,67 +2,59 @@ package main
 
 import (
 	"bufio"
-	"fmt"
-	"log"
 	"os"
+	"path/filepath"
 	"runtime"
 
-	"github.com/fundon/md/mdclient"
-	"github.com/heroku/hk/term"
-	"github.com/mgutz/ansi"
+	"github.com/codegangsta/cli"
+	"github.com/modouwifi/md/mdclient"
 )
+
+const VERSION = "0.0.0"
 
 var (
 	client  *mdclient.Client
-	Version = "0.0.0"
+	config  *Config
+	app     = cli.NewApp()
 	apiURL  = "http://modouwifi.net/api"
-	mdAgent = "md/" + Version + " (" + runtime.GOOS + "; " + runtime.GOARCH + ")"
+	mdAgent = "md/" + VERSION + " (" + runtime.GOOS + "; " + runtime.GOARCH + ")"
 	stdin   = bufio.NewReader(os.Stdin)
 )
 
-// Running `md help` will list commands in this order.
-var commands = []*Command{
-	cmdLogin,
-	cmdLogout,
-
-	cmdVersion,
-	cmdHelp,
-}
-
 func initClient() {
 	client = mdclient.New(apiURL, mdAgent)
+	config = &Config{}
+	file, err := LocateRcfile()
+	if err != nil {
+		err = os.MkdirAll(filepath.Dir(file), os.ModePerm)
+		if err != nil {
+			printFatal(err.Error())
+		}
+		_, err := os.OpenFile(file, os.O_CREATE, os.ModePerm)
+		if err != nil {
+			printFatal(err.Error())
+		}
+	}
+	config.Filename = file
+	config.Read()
+}
+
+func init() {
+	runtime.GOMAXPROCS(runtime.NumCPU())
+
+	app.Name = "md"
+	app.Usage = "[COMMANDS]"
+	app.Version = VERSION
+	app.Commands = append(app.Commands,
+		cmdLogin,
+		cmdLogout,
+
+		cmdSystem,
+	)
 }
 
 func main() {
-	log.SetFlags(0)
-
-	if !term.IsANSI(os.Stdout) {
-		ansi.DisableColors(true)
-	}
-
 	initClient()
 
-	args := os.Args[1:]
-
-	if len(args) < 1 {
-		usage()
-	}
-
-	for _, cmd := range commands {
-		if cmd.Name() == args[0] && cmd.Run != nil {
-			cmd.Flag.Usage = func() {
-				cmd.printUsage(false)
-			}
-			if err := cmd.Flag.Parse(args[1:]); err != nil {
-				os.Exit(2)
-			}
-			if err := cmd.Run(cmd, cmd.Flag.Args()); err != nil {
-				log.Fatal(err)
-			}
-			return
-		}
-	}
-
-	fmt.Fprintf(os.Stderr, "Unknown command: %s\n", args[0])
-	usage()
+	app.Run(os.Args)
 }
