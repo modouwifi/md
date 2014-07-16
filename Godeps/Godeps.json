@@ -1,0 +1,15 @@
+{
+	"ImportPath": "github.com/modouwifi/md",
+	"GoVersion": "go1.3",
+	"Deps": [
+		{
+			"ImportPath": "github.com/bgentry/speakeasy",
+			"Rev": "5dfe43257d1f86b96484e760f2f0c4e2559089c7"
+		},
+		{
+			"ImportPath": "github.com/codegangsta/cli",
+			"Comment": "1.0.0-77-gd38a3b8",
+			"Rev": "d38a3b82a6edb4efacbf0b42cd064f574f2a2a3f"
+		}
+	]
+}
