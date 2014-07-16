@@ -4,6 +4,7 @@ package main
 import (
 	"fmt"
 	"os"
+	"os/exec"
 )
 
 const (
@@ -18,4 +19,11 @@ func homePath() (string, error) {
 	}
 
 	return home, nil
+}
+
+// IsTerminal returns true if f is a terminal.
+func IsTerminal(f *os.File) bool {
+	cmd := exec.Command("test", "-t", "0")
+	cmd.Stdin = f
+	return cmd.Run() == nil
 }

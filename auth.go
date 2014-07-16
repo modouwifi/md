@@ -8,7 +8,6 @@ import (
 
 	"github.com/bgentry/speakeasy"
 	"github.com/codegangsta/cli"
-	"github.com/heroku/hk/term"
 	"github.com/modouwifi/md/api"
 )
 
@@ -42,7 +41,7 @@ func runLogout(c *cli.Context) {
 }
 
 func readPassword(prompt string) (password string, err error) {
-	if acceptPasswordFromStdin && !term.IsTerminal(os.Stdin) {
+	if acceptPasswordFromStdin && !IsTerminal(os.Stdin) {
 		_, err = fmt.Scanln(&password)
 		return
 	}
