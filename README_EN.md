@@ -26,3 +26,4 @@ $ md system
 * `login`
 * `system`
 * `security`
+* `wan`
