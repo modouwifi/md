@@ -49,6 +49,7 @@ func init() {
 
 		cmdSystem,
 		cmdSecurity,
+		cmdWan,
 	)
 }
 
