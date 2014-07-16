@@ -9,7 +9,7 @@ import (
 
 var cmdSecurity = cli.Command{
 	Name:  "security",
-	Usage: "system security",
+	Usage: "System security",
 	Subcommands: []cli.Command{
 		{
 			Name:   "get",

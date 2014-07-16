@@ -8,7 +8,7 @@ import (
 	"path/filepath"
 )
 
-var configFile = "config.json"
+const configFile = "config.json"
 
 type Config struct {
 	Filename string `json:"-"`

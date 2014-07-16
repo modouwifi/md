@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bufio"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -15,10 +14,9 @@ const VERSION = "0.0.0"
 var (
 	client  *Client
 	config  *Config
-	app     = cli.NewApp()
 	apiURL  = "http://modouwifi.net/api"
 	mdAgent = "md/" + VERSION + " (" + runtime.GOOS + "; " + runtime.GOARCH + ")"
-	stdin   = bufio.NewReader(os.Stdin)
+	app     = cli.NewApp()
 )
 
 func initClient() {
@@ -43,7 +41,7 @@ func init() {
 	runtime.GOMAXPROCS(runtime.NumCPU())
 
 	app.Name = "md"
-	app.Usage = "[COMMANDS]"
+	app.Usage = "Command Line Utility for Modou"
 	app.Version = VERSION
 	app.Commands = append(app.Commands,
 		cmdLogin,
