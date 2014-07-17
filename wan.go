@@ -36,6 +36,11 @@ var cmdWan = cli.Command{
 			Usage:  "Display STATIC Info",
 			Action: runWanSTATICInfo,
 		},
+		{
+			Name:   "traffics",
+			Usage:  "Display Traffics Info",
+			Action: runWanTraffics,
+		},
 	},
 }
 
@@ -90,6 +95,17 @@ func runWanSTATICInfo(c *cli.Context) {
 	}
 	req.SetCookie(config.Cookie)
 	var result api.WanSTATIC
+	err = req.ToJSON(&result)
+	fmt.Println(result)
+}
+
+func runWanTraffics(c *cli.Context) {
+	req, err := client.NewRequest("GET", "/wan/get_traffics")
+	if err != nil {
+		fmt.Println(err)
+	}
+	req.SetCookie(config.Cookie)
+	var result api.WanTraffics
 	err = req.ToJSON(&result)
 	fmt.Println(result)
 }

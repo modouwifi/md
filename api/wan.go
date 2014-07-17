@@ -45,3 +45,17 @@ type WanSTATIC struct {
 	MTU     int    `json:"mtu"`
 	STP     bool   `json:"stp"`
 }
+
+type WanTraffics struct {
+	ResponseMessage
+	Up        int    `json:"up"`
+	UpStr     string `json:"up_str"`
+	Down      int    `json:"down"`
+	DownStr   string `json:"down_str"`
+	TxRate    int    `json:"tx_rate"`
+	RxDropped int    `json:"rx_dropped"`
+	RxPackets int    `json:"rx_packets"`
+	TxPackets int    `json:"tx_packets"`
+	RxRate    int    `json:"rx_rate"`
+	TxDropped int    `json:"tx_dropped"`
+}
