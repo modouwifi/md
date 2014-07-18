@@ -29,3 +29,8 @@ type Wifi5G struct {
 	Wifi2G
 	SameAs2G bool `json:"same_as_2g"`
 }
+
+type WifiStatus struct {
+	ResponseMessage
+	IsEnabled bool `json:"is_enabled"`
+}

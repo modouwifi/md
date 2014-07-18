@@ -45,6 +45,16 @@ var cmdSystem = cli.Command{
 				cli.StringFlag{Name: "action, a", Value: "lock", Usage: "Control the blacklight, lock|release|wakeup"},
 			},
 		},
+		{
+			Name:   "time",
+			Usage:  "Get/set system time",
+			Action: runSystemTime,
+		},
+		{
+			Name:   "cable",
+			Usage:  "Get system cable connections",
+			Action: runSystemCable,
+		},
 	},
 }
 
@@ -131,4 +141,26 @@ func runSystemBacklight(c *cli.Context) {
 		err = req.ToJSON(&result)
 		fmt.Println(result)
 	}
+}
+
+func runSystemTime(c *cli.Context) {
+	req, err := client.NewRequest("GET", "/system/get_time")
+	if err != nil {
+		fmt.Println(err)
+	}
+	req.SetCookie(config.Cookie)
+	var result api.SystemTime
+	err = req.ToJSON(&result)
+	fmt.Println(result)
+}
+
+func runSystemCable(c *cli.Context) {
+	req, err := client.NewRequest("GET", "/system/get_cable_connection")
+	if err != nil {
+		fmt.Println(err)
+	}
+	req.SetCookie(config.Cookie)
+	var result api.SystemCable
+	err = req.ToJSON(&result)
+	fmt.Println(result)
 }
