@@ -23,4 +23,5 @@ $ md system
 * `security`
 * `wan`
 * `wifi`
+* `lan`
 * ...
