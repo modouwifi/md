@@ -51,6 +51,7 @@ func init() {
 		cmdSecurity,
 		cmdWan,
 		cmdWifi,
+		cmdLan,
 	)
 }
 
