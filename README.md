@@ -24,4 +24,5 @@ $ md system
 * `wan`
 * `wifi`
 * `lan`
+* `devices`
 * ...
