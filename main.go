@@ -52,6 +52,7 @@ func init() {
 		cmdWan,
 		cmdWifi,
 		cmdLan,
+		cmdDevices,
 	)
 }
 
