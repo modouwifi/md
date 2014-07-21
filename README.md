@@ -25,4 +25,5 @@ $ md system
 * `wifi`
 * `lan`
 * `devices`
+* `apps`
 * ...
