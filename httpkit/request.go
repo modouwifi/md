@@ -12,6 +12,7 @@ import (
 	//"net/http/httputil"
 	"net/url"
 	"reflect"
+	"strings"
 )
 
 type Request struct {
@@ -22,6 +23,7 @@ type Request struct {
 
 	req *http.Request
 	res *http.Response
+	qs  string
 }
 
 func New(method, url, userAgent string) *Request {
@@ -50,7 +52,9 @@ func (r *Request) SetCookie(c *http.Cookie) error {
 
 func (r *Request) SetTransport() {}
 
-func (r *Request) Param() {}
+func (r *Request) QueryString(qs string) {
+	r.qs = qs
+}
 
 func (r *Request) SetProtocolVersion(vers string) {
 	if len(vers) == 0 {
@@ -101,6 +105,13 @@ func (r *Request) Body(data interface{}) {
 }
 
 func (r *Request) Do() (*http.Response, error) {
+	if r.qs != "" {
+		if strings.Index(r.URL, "?") != -1 {
+			r.URL += "&" + r.qs
+		} else {
+			r.URL = r.URL + "?" + r.qs
+		}
+	}
 	url, err := url.Parse(r.URL)
 	r.req.Method = r.Method
 	r.req.URL = url
