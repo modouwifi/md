@@ -26,4 +26,5 @@ $ md system
 * `lan`
 * `devices`
 * `apps`
+  * `apps :appId` - 通过应用id，查询应用的最新信息
 * ...
